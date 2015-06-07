@@ -18,9 +18,12 @@ class SubReddit_Postings:
 		phone -- Phone number of recipient 
 		
 		"""		
-		self.post_text  = '  '  
+		self.post_text  = '  '
+		self.account_sid = ' '
+		self.auth_token = ' '
 		self.subreddit_name = name
 		self.phone_number = phone
+		self.twilio_number = ' '
 		
 	def subreddit_extract_post(self):
 		"""Extracts a list of SubReddit posts
@@ -31,10 +34,9 @@ class SubReddit_Postings:
 		r = praw.Reddit(user_agent=user_agent)
 
 		
-		subreddit_posts_valid = r.get_subreddit(self.subreddit_name, fetch=True)
-		if subreddit_posts_valid.has_fetched == True:
-			subreddit_posts = r.get_subreddit(self.subreddit_name,).get_top(limit = POST_LIMIT)
-
+		
+		subreddit_posts = r.get_subreddit(self.subreddit_name,).get_top(limit = POST_LIMIT)
+		if subreddit_posts:
 			for post in subreddit_posts:
 				self.post_text = post.title.lower() 
 				self.post_text += "  " + post.url
@@ -42,25 +44,37 @@ class SubReddit_Postings:
 
 				print "No such subreddit"
 		
-
+	def twilio_setup( self,account_sid, auth_token, twilio_number):
+		self.account_sid = account_sid
+		self.auth_token = auth_token
+		self.twilio_number = twilio_number
+	
 	def sms_subreddit_post(self):
 		"""Sends an SMS of top SubReddit posts
 		"""	
 		
 		try:
-			TWILIO_NUMBER = "+18574454093"
-			account_sid = "ACbb8840b48cc93d4b05e987d82f7a281a"
-			auth_token = "0f065f163e588424cf645b07e3dbc0cb"
-		
+			if self.twilio_number:
+				TWILIO_NUMBER = self.twilio_number
+				account_sid = self.account_sid
+				auth_token = self.auth_token
+			
+			else:
+				TWILIO_NUMBER = "+18574454093"
+				account_sid = "ACbb8840b48cc93d4b05e987d82f7a281a"
+				auth_token = "0f065f163e588424cf645b07e3dbc0cb"
+
 			client = TwilioRestClient(account_sid, auth_token)
 			message = client.messages.create(body=self.post_text,
 			to=self.phone_number,
 			from_=TWILIO_NUMBER)
+			return True
 			print "SMS Sent"
 
 			pprint(self.post_text)
 			
 		except twilio.TwilioRestException as e:
+			return False
 			print e
 
 			

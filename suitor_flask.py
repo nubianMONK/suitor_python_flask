@@ -45,14 +45,11 @@ def subreddit_post():
 		subreddit.sms_subreddit_post()
 		
 		flash("SMS successfully sent!!!")
+
 		return redirect(url_for('subreddit_post'))
         
         
     return render_template('suitor_flask.html', form=form)
-
-
-
-
 
 if __name__ == '__main__':
 	

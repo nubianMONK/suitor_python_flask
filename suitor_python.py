@@ -29,17 +29,20 @@ class SubReddit_Postings:
 		POST_LIMIT = 0
 		user_agent = ("Top Subreddit Posts 1.0 by /u/ruby_relay_bot")
 		r = praw.Reddit(user_agent=user_agent)
+
 		
 		subreddit_posts_valid = r.get_subreddit(self.subreddit_name, fetch=True)
-		
 		if subreddit_posts_valid.has_fetched == True:
 			subreddit_posts = r.get_subreddit(self.subreddit_name,).get_top(limit = POST_LIMIT)
+
 			for post in subreddit_posts:
 				self.post_text = post.title.lower() 
 				self.post_text += "  " + post.url
 		else: 
+
 				print "No such subreddit"
 		
+
 	def sms_subreddit_post(self):
 		"""Sends an SMS of top SubReddit posts
 		"""	

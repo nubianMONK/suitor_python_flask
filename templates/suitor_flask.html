@@ -1,24 +1,21 @@
 
-{% extends "layout.html" %}
-{% block body %}
-<h1> SMS Subreddit Top Posts </h1>
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-<form action="{{url_for('subreddit_post')}}" method = 'POST'>
+{% block title %}Suitor Flask{% endblock %}
 
-<p>Subreddit Name:</p>
-
-<input type='text' size='30' name='name'>
-
-<p>Phone Number:</p>
-
-<input type='text' size='30' name='phone'>
-
-
-<input type='submit' value='Send'>
-
-</form>
-
+{% block page_content %}
+<div class="page-header">
+    <h1>SMS Subreddit Top Posts</h1>
+</div>
+{{ wtf.quick_form(form) }}
 {% endblock %}
 
-</body>
-</html>
+
+
+
+
+
+
+
+

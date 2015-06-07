@@ -1,5 +1,5 @@
 
-<<<<<<< HEAD
+
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
@@ -20,28 +20,3 @@
 
 
 
-=======
-{% extends "layout.html" %}
-{% block body %}
-<h1> SMS Subreddit Top Posts </h1>
-
-<form action="{{url_for('subreddit_post')}}" method = 'POST'>
-
-<p>Subreddit Name:</p>
-
-<input type='text' size='30' name='name'>
-
-<p>Phone Number:</p>
-
-<input type='text' size='30' name='phone'>
-
-
-<input type='submit' value='Send'>
-
-</form>
-
-{% endblock %}
-
-</body>
-</html>
->>>>>>> 8c7dacf74a3bda0089018c67cfd407d1ce9fa645

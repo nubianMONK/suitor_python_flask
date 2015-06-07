@@ -2,6 +2,7 @@
 *.pyc
  
 ## generic files to ignore
+flask_session
 *~
 *.lock
 *.DS_Store

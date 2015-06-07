@@ -1,5 +1,8 @@
 Flask==0.10.1
 Flask-Session==0.2
+WTForms==2.0.2
+Flask-WTF==0.11
+Flask-Bootstrap==3.3.4.1
 gunicorn==19.3.0
 itsdangerous==0.24
 Jinja2==2.7.3
@@ -7,3 +10,4 @@ MarkupSafe==0.23
 Werkzeug==0.10.4
 twilio==4.4.0
 praw==2.1.21
+update-checker==0.11

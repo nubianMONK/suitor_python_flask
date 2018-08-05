@@ -20,7 +20,7 @@ class SubRedditForm(Form):
 	form_name = StringField('What is the subreddit name?', validators=[Required()])
 	form_phone_number = StringField('What is the recipients phone number?', \
 	validators=[Required()])
-	
+
 	form_twilio_number = StringField('Your Twilio Tel Number - optional')
 	form_account_sid = StringField('Your account_sid - optional')
 	form_auth_token = StringField('Your auth_token - optional')
@@ -28,8 +28,8 @@ class SubRedditForm(Form):
 
 @app.errorhandler(403)
 def page_forbidden(e):
-	return render_template('403.html'), 403	
-	
+	return render_template('403.html'), 403
+
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('404.html'), 404
@@ -38,13 +38,13 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
 	return render_template('500.html'), 500
-	
-	
+
+
 @app.route('/', methods=['GET', 'POST'])
 def subreddit_post():
 	form = SubRedditForm()
 	if form.validate_on_submit():
-	
+
 		name=form.form_name.data
 		phone_number = form.form_phone_number.data
 
@@ -55,7 +55,7 @@ def subreddit_post():
 		subreddit = SubReddit_Postings(name,phone_number)
 		if twilio_number:
 			subreddit.twilio_setup(account_sid,auth_token,twilio_number)
-		
+
 		subreddit.subreddit_extract_post()
 		valid = subreddit.sms_subreddit_post()
 		if valid:
@@ -68,6 +68,6 @@ def subreddit_post():
 	return render_template('suitor_flask.html', form=form)
 
 if __name__ == '__main__':
-	
-	app.debug = False
+
+	app.debug = True
 	app.run()
